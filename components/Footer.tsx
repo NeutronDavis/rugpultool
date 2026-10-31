@@ -16,6 +16,7 @@ const COLUMNS = [
   {
     title: "Resources",
     links: [
+      { href: "/docs", label: "User guide" },
       { href: "/about", label: "Methodology" },
       { href: "/#how", label: "How it works" },
       { href: "/#faq", label: "FAQ" },
@@ -34,10 +35,10 @@ const COLUMNS = [
   {
     title: "Legal",
     links: [
-      { href: "/about", label: "Disclaimer" },
-      { href: "/about", label: "Risk notice" },
-      { href: "/about", label: "Terms" },
-      { href: "/about", label: "Privacy" },
+      { href: "/terms#terms", label: "Terms of Service" },
+      { href: "/terms#privacy", label: "Privacy Policy" },
+      { href: "/terms#risk", label: "Risk notice" },
+      { href: "/about", label: "Methodology" },
     ],
   },
 ];

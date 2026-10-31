@@ -1,8 +1,8 @@
-# SolRugWatch 🛡️
+# RugPullTool 🛡️
 
 **Live Solana Meme Coin Risk Radar** — A real-time threat intelligence and risk analysis dashboard for freshly launched Solana meme coins, built with **Next.js 14+ (App Router)**, **TypeScript**, and **Tailwind CSS**.
 
-There is **NO database**, ORM, or persistent storage. Everything is discovered, enriched, and classified server-side and cached with in-memory TTL and Next.js revalidation.
+The risk radar itself needs **no database** — tokens are discovered, enriched, and classified server-side and cached with in-memory TTL and Next.js revalidation. A MySQL database (Prisma) is used only for accounts, auth, and subscription plans.
 
 ---
 
@@ -119,6 +119,41 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 npm run build
 npm start
 ```
+
+---
+
+## 🔐 Authentication, Database & Subscriptions
+
+Google sign-in/sign-up, database publishing, seed accounts, and the subscription
+strategy are documented in **[`doc/auth-and-billing.md`](doc/auth-and-billing.md)**.
+
+Quick reference:
+
+```bash
+npm run db:push     # publish prisma/schema.prisma to MySQL
+npm run db:seed     # insert demo users (all plans) + example rows
+npm run db:studio   # browse the database
+```
+
+Demo login: `demo@rugpulltool.dev` / `Demo1234!` (ADVANCED, lifetime).
+
+Google OAuth needs `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`; the button is
+hidden until both are set. Redirect URI:
+`http://localhost:3001/api/auth/callback/google`.
+
+### Solana Pay checkout
+
+Paid plans are sold in SOL. Set a treasury address, then visit
+`/checkout?plan=basic` (or pick a plan on the landing page):
+
+```env
+NEXT_PUBLIC_TREASURY_WALLET=<your Solana treasury address>
+NEXT_PUBLIC_SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
+```
+
+The flow creates a `payments` intent, shows a Solana Pay QR + in-browser wallet
+button, verifies recipient/amount/reference on-chain, and activates the plan
+server-side. Details: [`doc/auth-and-billing.md`](doc/auth-and-billing.md).
 
 ---
 

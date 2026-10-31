@@ -5,7 +5,13 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { AlertCircle, Loader2 } from "lucide-react";
 
-export function AuthForm({ googleEnabled }: { googleEnabled: boolean }) {
+export function AuthForm({
+  googleEnabled,
+  plan,
+}: {
+  googleEnabled: boolean;
+  plan?: string | null;
+}) {
   const router = useRouter();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [name, setName] = useState("");
@@ -13,6 +19,9 @@ export function AuthForm({ googleEnabled }: { googleEnabled: boolean }) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Preserve a plan chosen on the pricing section through sign-in.
+  const callbackUrl = plan ? `/checkout?plan=${plan.toLowerCase()}` : "/launch";
 
   // Clear stale errors when switching between the two forms.
   useEffect(() => setError(null), [mode]);
@@ -42,7 +51,7 @@ export function AuthForm({ googleEnabled }: { googleEnabled: boolean }) {
         email,
         password,
         redirect: false,
-        callbackUrl: "/launch",
+        callbackUrl,
       });
 
       if (!result || result.error) {
@@ -53,7 +62,7 @@ export function AuthForm({ googleEnabled }: { googleEnabled: boolean }) {
         );
       }
 
-      router.push("/launch");
+      router.push(callbackUrl);
       router.refresh();
     } catch (err) {
       setError((err as Error).message);
@@ -85,7 +94,7 @@ export function AuthForm({ googleEnabled }: { googleEnabled: boolean }) {
         <>
           <button
             type="button"
-            onClick={() => signIn("google", { callbackUrl: "/launch" })}
+            onClick={() => signIn("google", { callbackUrl })}
             disabled={loading}
             className="btn btn-outline btn-block border-base-300 gap-2"
           >

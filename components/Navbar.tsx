@@ -14,6 +14,7 @@ export function Navbar() {
   // Launch and Positions are the paid surface, so they stay hidden until sign-in.
   const links = [
     { href: "/dashboard", label: "Rugs" },
+    { href: "/docs", label: "Docs" },
     ...(authed
       ? [
           { href: "/launch", label: "Launch" },
@@ -110,10 +111,18 @@ export function Navbar() {
                     className="dropdown-content menu z-50 mt-2 w-56 max-w-[calc(100vw-2rem)] rounded-box border border-base-300 bg-base-200 p-2 shadow-xl"
                   >
                     <li className="menu-title max-w-full truncate text-[11px] text-base-content/40">
-                      {email}
+                      <span className="flex w-full items-center justify-between gap-2">
+                        <span className="truncate">{email}</span>
+                        <span className="badge badge-outline badge-xs shrink-0 border-base-300 text-[9px] uppercase tracking-[0.08em]">
+                          {session?.user?.plan ?? "FREE"}
+                        </span>
+                      </span>
                     </li>
                     <li>
                       <Link href="/portfolio">Positions</Link>
+                    </li>
+                    <li>
+                      <Link href="/#pricing">Plans &amp; billing</Link>
                     </li>
                     <li>
                       <button

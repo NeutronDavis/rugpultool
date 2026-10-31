@@ -82,3 +82,56 @@ export const PLAN_PRICES: { name: string; price: string; note: string }[] = [
     note: "lifetime access",
   })),
 ];
+
+/* ------------------------------------------------------------------ */
+/* Billing helpers — shared by the pricing UI and the checkout server. */
+/* ------------------------------------------------------------------ */
+
+/** Plans that can be bought with SOL. FREE is the default tier. */
+export const PAID_PLANS = ["TESTER", "BASIC", "ADVANCED", "PREMIUM"] as const;
+export type PaidPlan = (typeof PAID_PLANS)[number];
+
+export const PLAN_RANK: Record<"FREE" | PaidPlan, number> = {
+  FREE: 0,
+  TESTER: 1,
+  BASIC: 2,
+  ADVANCED: 3,
+  PREMIUM: 4,
+};
+
+/** TESTER is time-boxed; every other paid tier is lifetime. */
+export const TESTER_DURATION_DAYS = 7;
+
+export function normalizePaidPlan(value: string | null | undefined): PaidPlan | null {
+  if (!value) return null;
+  const upper = value.trim().toUpperCase();
+  return (PAID_PLANS as readonly string[]).includes(upper) ? (upper as PaidPlan) : null;
+}
+
+export function isPaidPlan(value: string | null | undefined): value is PaidPlan {
+  return normalizePaidPlan(value) !== null;
+}
+
+export function planPriceSol(plan: PaidPlan): number {
+  const price =
+    plan === "TESTER"
+      ? TESTER.price
+      : PLANS.find((entry) => entry.name.toUpperCase() === plan)?.price ?? "0";
+  return Number(price);
+}
+
+export function planDisplayName(plan: PaidPlan): string {
+  return plan === "TESTER" ? TESTER.name : PLANS.find((p) => p.name.toUpperCase() === plan)?.name ?? plan;
+}
+
+/** A live paid plan is anything above FREE whose expiry has not passed. */
+export function isLivePlan(
+  plan: "FREE" | PaidPlan | string,
+  planExpiresAt: Date | string | null | undefined,
+  now: Date = new Date()
+): boolean {
+  if (plan === "FREE" || !plan) return false;
+  if (!planExpiresAt) return true; // lifetime
+  const expiry = planExpiresAt instanceof Date ? planExpiresAt : new Date(planExpiresAt);
+  return expiry.getTime() > now.getTime();
+}

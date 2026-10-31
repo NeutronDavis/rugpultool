@@ -32,9 +32,10 @@ export function Paywall({
 
           <div className="grid w-full gap-2 sm:grid-cols-2">
             {PLAN_PRICES.map((plan) => (
-              <div
+              <Link
                 key={plan.name}
-                className="flex items-center justify-between gap-3 rounded-lg border border-base-300 px-3 py-2 text-left"
+                href={`/checkout?plan=${plan.name.toLowerCase()}`}
+                className="flex items-center justify-between gap-3 rounded-lg border border-base-300 px-3 py-2 text-left transition-colors hover:border-primary/50 hover:bg-base-300/40"
               >
                 <span className="flex flex-col">
                   <span className="text-[13px] font-medium">{plan.name}</span>
@@ -46,7 +47,7 @@ export function Paywall({
                   <span className="text-sm font-semibold text-base-content/85">{plan.price}</span>
                   SOL
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
 
@@ -61,7 +62,7 @@ export function Paywall({
           </div>
 
           <p className="text-[11px] leading-relaxed text-base-content/30">
-            Already paid? Sign out and back in to refresh your access.
+            Already paid? Your access refreshes automatically once the transaction is confirmed.
           </p>
         </div>
       </div>

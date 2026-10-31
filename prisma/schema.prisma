@@ -15,6 +15,12 @@ enum Plan {
   PREMIUM
 }
 
+enum PaymentStatus {
+  PENDING
+  CONFIRMED
+  EXPIRED
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?   @db.VarChar(80)
@@ -31,6 +37,7 @@ model User {
 
   accounts Account[]
   sessions Session[]
+  payments Payment[]
 
   @@index([plan])
   @@map("users")
@@ -78,6 +85,35 @@ model VerificationToken {
   token      String   @unique
   expires    DateTime
 
-  @@unique([identifier, token])
+  // Aiven MySQL enforces sql_require_primary_key, so this table needs an
+  // explicit primary key. (identifier, token) is unique by NextAuth design.
+  @@id([identifier, token])
   @@map("verification_tokens")
+}
+
+/*
+ * Solana Pay checkout. A Payment row is the intent: it pins the plan, amount,
+ * treasury recipient and a one-time reference key. The reference is embedded
+ * in the Solana Pay transfer so the server can find the matching transaction.
+ * A signature is only ever written once (unique), which makes verification
+ * idempotent and blocks replaying someone else's transfer.
+ */
+model Payment {
+  id             String        @id @default(cuid())
+  userId         String
+  plan           Plan
+  amountLamports BigInt
+  reference      String        @unique @db.VarChar(64)
+  status         PaymentStatus @default(PENDING)
+  signature      String?       @unique @db.VarChar(128)
+  expiresAt      DateTime
+  confirmedAt    DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([status, expiresAt])
+  @@map("payments")
 }

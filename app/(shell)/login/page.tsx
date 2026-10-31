@@ -5,15 +5,23 @@ import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import { AuthForm } from "@/components/auth/AuthForm";
 import { Logo } from "@/components/brand/Logo";
+import { normalizePaidPlan } from "@/lib/plans";
 
 export const metadata: Metadata = {
   title: "Sign in — rugpulltool",
   description: "Sign in to launch tokens and manage positions.",
 };
 
-export default async function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: { plan?: string };
+}) {
+  const plan = normalizePaidPlan(searchParams.plan);
   const session = await getServerSession(authOptions);
-  if (session) redirect("/launch");
+  if (session) {
+    redirect(plan ? `/checkout?plan=${plan.toLowerCase()}` : "/launch");
+  }
 
   const googleEnabled = Boolean(
     process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
@@ -24,11 +32,13 @@ export default async function LoginPage() {
       <div className="mb-8 flex flex-col items-center">
         <Logo />
         <p className="mt-3 max-w-sm text-center text-[13px] leading-relaxed text-base-content/45">
-          Sign in to launch tokens and manage positions. The risk radar stays open to everyone.
+          {plan
+            ? `Sign in to continue to checkout for the ${plan.toLowerCase()} package.`
+            : "Sign in to launch tokens and manage positions. The risk radar stays open to everyone."}
         </p>
       </div>
 
-      <AuthForm googleEnabled={googleEnabled} />
+      <AuthForm googleEnabled={googleEnabled} plan={plan} />
     </div>
   );
 }
