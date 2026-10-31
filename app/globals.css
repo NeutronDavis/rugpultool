@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: false;
+  logs: false;
+}
+
+/* Palette sampled from the capsule mark: blood red, carbon black, brushed silver. */
+@plugin "daisyui/theme" {
+  name: "rugpull";
+  default: true;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: #0a0a0b;
+  --color-base-200: #101012;
+  --color-base-300: #18181b;
+  --color-base-content: #e8e8ec;
+  --color-primary: #ff2b2b;
+  --color-primary-content: #ffffff;
+  --color-secondary: #c7cbd1;
+  --color-secondary-content: #0a0a0b;
+  --color-accent: #ff6b6b;
+  --color-accent-content: #0a0a0b;
+  --color-neutral: #1c1c20;
+  --color-neutral-content: #e8e8ec;
+  --color-info: #6aa9ff;
+  --color-info-content: #05101f;
+  --color-success: #22c55e;
+  --color-success-content: #04140a;
+  --color-warning: #f5a524;
+  --color-warning-content: #1a1205;
+  --color-error: #ff4d6d;
+  --color-error-content: #2a0510;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@theme {
+  /* Legacy tokens still referenced by the radar views. */
+  --color-solanaPurple: #ff2b2b;
+  --color-solanaGreen: #c7cbd1;
+  --color-background: #0a0a0b;
+  --color-card: #101012;
+  --color-cardBorder: #1f1f23;
+  --color-danger: #ff4d6d;
+  --color-warn: #f5a524;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+  }
+
+  body {
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgb(255 43 43 / 0.35);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0b;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #26262b;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3a40;
+  }
+}
+
+/* Faint engineering grid used behind the hero and closing CTA. */
+@utility bg-hairline-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility text-balance-tight {
+  text-wrap: balance;
+  letter-spacing: -0.03em;
+}

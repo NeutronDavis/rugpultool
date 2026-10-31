@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Plan {
+  FREE
+  TESTER
+  BASIC
+  ADVANCED
+  PREMIUM
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?   @db.VarChar(80)
+  email         String    @unique @db.VarChar(191)
+  emailVerified DateTime?
+  image         String?   @db.VarChar(512)
+  // Null for OAuth-only accounts.
+  passwordHash  String?   @db.VarChar(255)
+  plan          Plan      @default(FREE)
+  // Null on paid tiers = lifetime access. Set for Tester (one week).
+  planExpiresAt DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts Account[]
+  sessions Session[]
+
+  @@index([plan])
+  @@map("users")
+}
+
+/*
+ * Standard NextAuth models. The app currently runs on JWT sessions, so these
+ * stay empty — they exist so switching to `strategy: "database"` later is a
+ * one-line change rather than a migration.
+ */
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
