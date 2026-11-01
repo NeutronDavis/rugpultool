@@ -317,7 +317,7 @@ export function LaunchStudio() {
             <Row label="Est. cost" value={`~${estimatedCost} SOL`} />
           </dl>
           <p className="mt-4 text-[11px] leading-relaxed text-base-content/40">
-            There is no LP token on a bonding curve, so there is nothing to withdraw.
+            There is no LP token on a bonding curve, so there is no liquidity for you to withdraw.
             Buyers can still watch you sell a dev allocation — that is why it is shown here
             before you launch.
           </p>

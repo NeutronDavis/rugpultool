@@ -168,7 +168,7 @@ A wallet-signed pump.fun-style launch flow, additive to the radar.
 3. `/api/launch` asks PumpPortal to assemble an unsigned `create` transaction for the `pump` or `bonk` venue.
 4. The client signs with the mint keypair plus the connected wallet and broadcasts to `NEXT_PUBLIC_SOLANA_RPC_URL`.
 
-**Why it cannot rug:** a bonding curve's liquidity is program-owned. There is no LP token, so there is nothing to withdraw. The remaining risk vector is a creator selling a dev allocation, which is why the pre-flight panel discloses the exact dev buy before signing.
+**Why the liquidity cannot be pulled:** a bonding curve's liquidity is program-owned. There is no LP token, so there is no liquidity for a creator to withdraw. The remaining risk vector is a creator selling a dev allocation, which is why the pre-flight panel discloses the exact dev buy before signing.
 
 **Required environment**
 

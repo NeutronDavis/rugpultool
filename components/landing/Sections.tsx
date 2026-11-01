@@ -284,7 +284,7 @@ export { Pricing } from "./Pricing";
 const FAQS = [
   {
     q: "Can a creator pull liquidity on a coin launched here?",
-    a: "No. Bonding-curve liquidity is held by the program, not by an LP token. There is nothing for a creator to withdraw, and the mint and freeze authorities are not in creator hands.",
+    a: "No. Bonding-curve liquidity is held by the program, not by an LP token. There is no liquidity for a creator to withdraw, and the mint and freeze authorities are not in creator hands.",
   },
   {
     q: "So what can still go wrong?",

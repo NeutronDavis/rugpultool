@@ -18,9 +18,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "rugpulltool — launch a coin that cannot be rugged",
+  title: "rugpulltool — launch a coin with no liquidity to pull",
   description:
-    "Launch Solana memecoins on a bonding curve where liquidity is program-owned. No LP token exists, so there is nothing to withdraw.",
+    "Launch Solana memecoins on a bonding curve in one signed transaction. The SOL reserve is program-owned, there is no LP token to pull, and your tokens are yours to sell at any time.",
 };
 
 export const viewport: Viewport = {

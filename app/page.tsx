@@ -14,9 +14,9 @@ import {
 } from "@/components/landing/Sections";
 
 export const metadata = {
-  title: "rugpulltool — launch a coin that cannot be rugged",
+  title: "rugpulltool — launch a coin with no liquidity to pull",
   description:
-    "Launch Solana memecoins on a bonding curve where liquidity is program-owned. No LP token exists, so there is nothing to withdraw.",
+    "Launch Solana memecoins on a bonding curve in one signed transaction. The SOL reserve is program-owned, there is no LP token to pull, and your tokens are yours to sell at any time.",
 };
 
 const HERO_STATS = [
@@ -41,7 +41,7 @@ export default function LandingPage() {
       <ScrollProgressBar />
 
       {/* Announcement */}
-      <div>
+      {/* <div>
         <div className="border-b border-base-300 bg-base-200/60">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-2.5 gap-y-1 px-3 py-2 text-[11px] text-center sm:px-6 lg:px-8">
             <span className="badge badge-primary badge-xs" />
@@ -53,7 +53,7 @@ export default function LandingPage() {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -73,15 +73,16 @@ export default function LandingPage() {
               </div>
 
               <h1 className="mt-5 text-3xl font-semibold leading-[1.1] tracking-[-0.035em] text-balance-tight sm:text-5xl lg:text-6xl">
-                Launch a coin that
+                Launch a coin with
                 <br className="hidden sm:block" />{" "}
-                <span className="text-primary">cannot be rugged</span>.
+                <span className="text-primary">no liquidity to pull</span>.
               </h1>
 
               <p className="mt-4 sm:mt-5 max-w-xl text-sm sm:text-[15px] leading-relaxed text-base-content/55">
-                Mint a Solana memecoin on a bonding curve where the SOL reserve is owned by the
-                program — not by an LP token. There is nothing for a creator to withdraw. You sign
-                once, the coin goes live, and the contract is honest by construction.
+                Mint a Solana memecoin on a bonding curve in one signed transaction. The SOL reserve
+                belongs to the launch program, not to a transferable LP token, so there is no pool
+                for a creator to drain. Your dev buy is disclosed before you sign. Your tokens stay
+                yours — sell at any time at the live market price. One signature and it&apos;s live.
               </p>
 
               <div className="mt-7 sm:mt-8 flex flex-col gap-3 sm:flex-row">
@@ -96,7 +97,7 @@ export default function LandingPage() {
               </div>
 
               <p className="mt-4 text-[11px] text-base-content/35">
-                Free tier available · No launch fee · No cut of creator revenue
+                Radar free forever · No launch fee · No cut of creator revenue
               </p>
 
               <div className="mt-8 sm:mt-10 grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-4 sm:gap-x-6 sm:gap-y-5">
