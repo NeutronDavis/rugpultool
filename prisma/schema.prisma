@@ -38,6 +38,7 @@ model User {
   accounts Account[]
   sessions Session[]
   payments Payment[]
+  reviews  Review[]
 
   @@index([plan])
   @@map("users")
@@ -116,4 +117,28 @@ model Payment {
   @@index([userId, status])
   @@index([status, expiresAt])
   @@map("payments")
+}
+
+/*
+ * Public testimonials. Reviews are curated for now — submission is closed while
+ * the moderation flow is rebuilt, so there is no create endpoint yet.
+ * userId is optional so seeded/imported reviews don't need an account.
+ */
+model Review {
+  id         String   @id @default(cuid())
+  userId     String?
+  authorName String   @db.VarChar(80)
+  handle     String?  @db.VarChar(40)
+  plan       Plan?
+  rating     Int
+  title      String?  @db.VarChar(120)
+  body       String   @db.Text
+  featured   Boolean  @default(false)
+  published  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([published, featured, createdAt])
+  @@map("reviews")
 }

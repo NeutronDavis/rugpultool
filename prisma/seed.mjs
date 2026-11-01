@@ -7,6 +7,7 @@
  *   - sessions             (one active NextAuth session)
  *   - verification_tokens  (one example email-verification token)
  *   - payments             (one historical confirmed Solana Pay payment)
+ *   - reviews              (sample testimonials for the public reviews page)
  *
  * Idempotent: safe to run repeatedly (`npm run db:seed`).
  *
@@ -162,12 +163,122 @@ async function main() {
     update: { userId: demoUser.id },
   });
 
+  // Sample testimonials for /reviews. Replace with real customer reviews.
+  const reviews = [
+    {
+      id: "seed-review-1",
+      authorName: "Marcus T.",
+      handle: "@marcusonchain",
+      plan: "ADVANCED",
+      rating: 5,
+      title: "Caught a bad launch before I aped",
+      body: "The radar flagged a token with an active mint authority minutes after it launched. I skipped it and watched it get drained the same day. The free radar alone is worth checking every morning.",
+      featured: true,
+      createdAt: new Date(now - 2 * DAY),
+    },
+    {
+      id: "seed-review-2",
+      authorName: "Lena K.",
+      handle: "@lenabuilds",
+      plan: "PREMIUM",
+      rating: 5,
+      title: "The cleanest launch flow I have used",
+      body: "Image upload, metadata, dev buy and the pre-flight review are all in one place. I signed once and the token was live. No juggling five tabs or copying mint addresses around.",
+      featured: true,
+      createdAt: new Date(now - 5 * DAY),
+    },
+    {
+      id: "seed-review-3",
+      authorName: "Priya S.",
+      handle: "@priyafinds",
+      plan: "TESTER",
+      rating: 5,
+      title: "Used the free radar for a week first",
+      body: "I tested the radar for a week before paying for the Tester plan. It was obvious what I was getting, and the 7-day access was enough for my first launch. Extended it afterwards.",
+      featured: true,
+      createdAt: new Date(now - 8 * DAY),
+    },
+    {
+      id: "seed-review-4",
+      authorName: "Deon R.",
+      handle: "@deon_sol",
+      plan: "PREMIUM",
+      rating: 5,
+      title: "Checkout was instant",
+      body: "Paid with Solana Pay from Phantom and the plan unlocked before I switched tabs. No email confirmation loop, no waiting for an admin. Exactly how it should work.",
+      featured: false,
+      createdAt: new Date(now - 11 * DAY),
+    },
+    {
+      id: "seed-review-5",
+      authorName: "Kenji M.",
+      handle: "@kenji_xyz",
+      plan: "ADVANCED",
+      rating: 4,
+      title: "Accurate flags, would like more filters",
+      body: "The risk flags have been reliable for me. I would like a few more filters on the radar table, but the token detail page gives me everything I need before a trade.",
+      featured: false,
+      createdAt: new Date(now - 14 * DAY),
+    },
+    {
+      id: "seed-review-6",
+      authorName: "Amara O.",
+      handle: "@amaraonchain",
+      plan: "BASIC",
+      rating: 5,
+      title: "No surprises before signing",
+      body: "The pre-flight panel showing the exact dev buy is a small thing that matters a lot. I knew what I was signing before the wallet popped up. Positions page is just as clear.",
+      featured: false,
+      createdAt: new Date(now - 18 * DAY),
+    },
+    {
+      id: "seed-review-7",
+      authorName: "Tomas V.",
+      handle: "@tomasv",
+      plan: "PREMIUM",
+      rating: 4,
+      title: "Fast and documented",
+      body: "Set up an account, connected Solflare and launched in one sitting. The user guide answered the two questions I had about fees. Support replied the same day.",
+      featured: false,
+      createdAt: new Date(now - 23 * DAY),
+    },
+    {
+      id: "seed-review-8",
+      authorName: "Nia B.",
+      handle: "@niabuilds",
+      plan: "TESTER",
+      rating: 4,
+      title: "Good trial length",
+      body: "Seven days was enough to launch and test the positions page. I would have liked a reminder before expiry, but the plan did exactly what it said on the pricing page.",
+      featured: false,
+      createdAt: new Date(now - 27 * DAY),
+    },
+  ];
+
+  for (const review of reviews) {
+    await prisma.review.upsert({
+      where: { id: review.id },
+      create: { ...review, published: true },
+      update: {
+        authorName: review.authorName,
+        handle: review.handle,
+        plan: review.plan,
+        rating: review.rating,
+        title: review.title,
+        body: review.body,
+        featured: review.featured,
+        published: true,
+      },
+    });
+  }
+
   const counts = {
     users: await prisma.user.count(),
     accounts: await prisma.account.count(),
     sessions: await prisma.session.count(),
     verificationTokens: await prisma.verificationToken.count(),
     payments: await prisma.payment.count(),
+    reviews: await prisma.review.count(),
   };
 
   console.log("Seed complete:", counts);

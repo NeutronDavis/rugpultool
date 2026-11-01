@@ -15,6 +15,7 @@ export function Navbar() {
   const links = [
     { href: "/dashboard", label: "Rugs" },
     { href: "/docs", label: "Docs" },
+    { href: "/reviews", label: "Reviews" },
     ...(authed
       ? [
           { href: "/launch", label: "Launch" },
