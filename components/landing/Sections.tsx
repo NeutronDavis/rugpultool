@@ -236,7 +236,7 @@ export function HowItWorks() {
     <section id="how" className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-24">
       <SectionHead
         eyebrow="How it works"
-        title="From an idea to a live mint in one signature"
+        title="Your Token Launch, Step by Step"
         copy="Five steps, one transaction, no intermediate custody of funds."
       />
 

@@ -73,16 +73,15 @@ export default function LandingPage() {
               </div>
 
               <h1 className="mt-5 text-3xl font-semibold leading-[1.1] tracking-[-0.035em] text-balance-tight sm:text-5xl lg:text-6xl">
-                Launch a coin with
+                 Automated memecoin launch 
                 <br className="hidden sm:block" />{" "}
-                <span className="text-primary">no liquidity to pull</span>.
+                <span className="text-primary">and control tool</span>.
               </h1>
 
               <p className="mt-4 sm:mt-5 max-w-xl text-sm sm:text-[15px] leading-relaxed text-base-content/55">
-                Mint a Solana memecoin on a bonding curve in one signed transaction. The SOL reserve
-                belongs to the launch program, not to a transferable LP token, so there is no pool
-                for a creator to drain. Your dev buy is disclosed before you sign. Your tokens stay
-                yours, sell at any time at the live market price. One signature and it&apos;s live.
+                Rugpull tool for Solana, BNB and Robinhood chain.
+                Everything you need to launch your memecoin and 
+                take your profits and secure your crypto without hassle all in one platform.
               </p>
 
               <div className="mt-7 sm:mt-8 flex flex-col gap-3 sm:flex-row">
@@ -116,7 +115,7 @@ export default function LandingPage() {
 
             {/* Pre-flight panel */}
             <div>
-              <div className="card card-border w-full overflow-hidden bg-base-200/70 backdrop-blur">
+              {/* <div className="card card-border w-full overflow-hidden bg-base-200/70 backdrop-blur">
                 <div className="card-body gap-0 p-0">
                   <div className="flex items-center justify-between border-b border-base-300 px-4 py-3 sm:px-5 sm:py-4">
                     <div className="flex items-center gap-2">
@@ -163,7 +162,7 @@ export default function LandingPage() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -178,12 +177,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <FeatureGrid />
+      {/* <FeatureGrid /> */}
       <StackSection />
       <HowItWorks />
       <Pricing />
       <Faq />
-      <Compatibility />
+      {/* <Compatibility /> */}
       <ClosingCta />
     </>
   );

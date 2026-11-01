@@ -7,10 +7,22 @@ const WalletMultiButton = dynamic(
   { ssr: false }
 );
 
+/** Desktop navbar — shown only on lg+ */
 export function ConnectButton({ className = "" }: { className?: string }) {
   return (
-    <div className="shrink-0 max-w-full">
-      <WalletMultiButton className={`btn btn-primary btn-sm text-xs sm:text-sm px-2.5 sm:px-3 h-8 sm:h-9 min-h-0 truncate ${className}`} />
+    <div className="hidden lg:block shrink-0 max-w-full">
+      <WalletMultiButton
+        className={`btn btn-primary btn-sm text-xs px-2.5 h-9 min-h-0 truncate max-w-[160px] ${className}`}
+      />
     </div>
+  );
+}
+
+/** Mobile dropdown entry — full-width, used inside the mobile menu */
+export function ConnectButtonMobile({ className = "" }: { className?: string }) {
+  return (
+    <WalletMultiButton
+      className={`!w-full !justify-start !rounded-btn !bg-transparent !text-base-content hover:!bg-base-300 !text-sm !font-normal !min-h-0 !h-auto !px-3 !py-2 !shadow-none ${className}`}
+    />
   );
 }

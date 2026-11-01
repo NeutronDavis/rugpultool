@@ -31,10 +31,10 @@ export default function AboutPage() {
           <span>Architecture & Heuristics</span>
         </div>
         <h1 className="text-2xl sm:text-4xl font-extrabold text-base-content tracking-tight">
-          About SolRugWatch
+          About RugPullTool
         </h1>
         <p className="text-sm sm:text-base text-base-content/60 mt-2 leading-relaxed">
-          SolRugWatch is a serverless, database-free threat intelligence radar for the Solana meme coin ecosystem. It scans newly deployed liquidity pools and applies deterministic risk classification heuristics in real time.
+          RugPullTool is a serverless, database-free threat intelligence radar for the Solana, BNB and Robinhood meme coin ecosystem. It scans newly deployed liquidity pools and applies deterministic risk classification heuristics in real time.
         </p>
       </div>
 

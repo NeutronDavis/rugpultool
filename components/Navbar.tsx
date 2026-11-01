@@ -5,7 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import { LogOut, Menu } from "lucide-react";
 
 import { Logo } from "@/components/brand/Logo";
-import { ConnectButton } from "@/components/wallet/ConnectButton";
+import { ConnectButton, ConnectButtonMobile } from "@/components/wallet/ConnectButton";
 
 export function Navbar() {
   const { data: session, status } = useSession();
@@ -55,6 +55,11 @@ export function Navbar() {
                 {!authed && (
                   <li className="border-t border-base-300 pt-1 mt-1">
                     <Link href="/login" className="py-2 text-sm font-semibold text-primary">Sign in</Link>
+                  </li>
+                )}
+                {authed && (
+                  <li className="border-t border-base-300 pt-1 mt-1">
+                    <ConnectButtonMobile />
                   </li>
                 )}
                 {authed && (
