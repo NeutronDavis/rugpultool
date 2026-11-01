@@ -82,7 +82,7 @@ export default function LandingPage() {
                 Mint a Solana memecoin on a bonding curve in one signed transaction. The SOL reserve
                 belongs to the launch program, not to a transferable LP token, so there is no pool
                 for a creator to drain. Your dev buy is disclosed before you sign. Your tokens stay
-                yours — sell at any time at the live market price. One signature and it&apos;s live.
+                yours, sell at any time at the live market price. One signature and it&apos;s live.
               </p>
 
               <div className="mt-7 sm:mt-8 flex flex-col gap-3 sm:flex-row">
