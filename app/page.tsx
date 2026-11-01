@@ -100,7 +100,7 @@ export default function LandingPage() {
                 Radar free forever · No launch fee · No cut of creator revenue
               </p>
 
-              <div className="mt-8 sm:mt-10 grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-4 sm:gap-x-6 sm:gap-y-5">
+              {/* <div className="mt-8 sm:mt-10 grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-4 sm:gap-x-6 sm:gap-y-5">
                 {HERO_STATS.map((stat) => (
                   <div key={stat.label}>
                     <div className="text-xl sm:text-2xl font-semibold tabular-nums tracking-tight">
@@ -111,7 +111,7 @@ export default function LandingPage() {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
 
             {/* Pre-flight panel */}
