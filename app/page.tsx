@@ -178,8 +178,8 @@ export default function LandingPage() {
       </section>
 
       {/* <FeatureGrid /> */}
-      <StackSection />
-      <HowItWorks />
+      {/* <StackSection /> */}
+      {/* <HowItWorks /> */}
       <Pricing />
       <Faq />
       {/* <Compatibility /> */}
